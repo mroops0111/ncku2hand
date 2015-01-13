@@ -14,6 +14,7 @@ and open the template in the editor.
     </head>
     <body>
         <?php
+        require 'php/toolbar_gen.php';
         // main function
         if($fbHandler->loggedIn()) {
             // Case: in logging-in flow
