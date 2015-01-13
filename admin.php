@@ -9,7 +9,7 @@ and open the template in the editor.
         <title>Main Manager</title>
         <?php
         $pageType = 'admin';
-        require '../php/header_gen.php';
+        require 'php/header_gen.php';
         ?>
     </head>
     <body>

@@ -14,7 +14,7 @@ echo '
                 <ul class="pages-menu">';
 
 if($isAdmin) {
-    printButton("admin/admin.php", "後台", "Admin", $pageType=='admin');
+    printButton("admin.php", "後台", "Admin", $pageType=='admin');
 }
 
 if($isUser) {
