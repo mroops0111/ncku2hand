@@ -9,7 +9,7 @@ and open the template in the editor.
         <meta charset="utf-8" />
         <?php
         $pageType = 'admin';
-        require 'php/header_gen.php';
+        require '../php/header_gen.php';
         
         $token = $dbHandler->getToken();
         $fbHandler->setToken($token);
@@ -19,9 +19,8 @@ and open the template in the editor.
                 $_ncku2hand['groupId']
                 );
         
-        if(!isset($_SESSION['refreshIdFlag'])) {
-            echo '<meta http-equiv="refresh" content="0">';
-        } else if ($_SESSION['refreshIdFlag']) {
+        if(isset($_SESSION['noUnfreshItem']) && $_SESSION['noUnfreshItem']) {
+        } else {
             echo '<meta http-equiv="refresh" content="0">';
         }
         ?>
@@ -29,12 +28,14 @@ and open the template in the editor.
     </head>
     <body>
         <?php
-        if(!isset($_SESSION['refreshIdFlag'])) {
-            $_SESSION['refreshIdFlag'] = $manager->fetchIdList();
-        } else if ($_SESSION['refreshIdFlag']) {
-            $_SESSION['refreshIdFlag'] = $manager->fetchIdList();
+        require '../php/toolbar_gen.php';
+        $unfreshId = $dbHandler->fetchUnfreshId();
+        if($unfreshId) {
+            $manager->refreshItem($unfreshId);
+            echo 'Item id: '.$unfreshId.' are refreshed';
         } else {
-            echo 'Refresh disabled in current session.<br>';
+            $_SESSION['noUnfreshItem'] = true;
+            echo 'Items are all fresh';
         }
         ?>
     </body>

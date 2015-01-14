@@ -9,12 +9,12 @@ and open the template in the editor.
         <title>Main Manager</title>
         <?php
         $pageType = 'admin';
-        require 'php/header_gen.php';
+        require '../php/header_gen.php';
         ?>
     </head>
     <body>
         <?php
-        require 'php/toolbar_gen.php';
+        require '../php/toolbar_gen.php';
         // main function
         if($fbHandler->loggedIn()) {
             // Case: in logging-in flow
@@ -30,9 +30,11 @@ and open the template in the editor.
             }
             if(filter_input(INPUT_GET, 'seth')) {
                 $dbHandler->setHealthy(true);
+                echo 'Site is healthy now.<br>';
             }
             if(filter_input(INPUT_GET, 'rsth')) {
                 $dbHandler->setHealthy(false);
+                echo 'Site is unhealthy now.<br>';
             }
             
             // check pre-saved access_token
@@ -46,9 +48,10 @@ and open the template in the editor.
         }
         
         function clearItems($dbHandler) {
+            $rootPath = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
             $dbHandler->clearItem();
 
-            $imgPath = $_ncku2hand['rootPath'].'storage/img/';
+            $imgPath = $rootPath.'storage/img/';
             $handle = opendir($imgPath);
             while (false !== ($entry = readdir($handle))) {
                 if($entry=='.' || $entry=='..') {
@@ -56,17 +59,19 @@ and open the template in the editor.
                 }
                 unlink($imgPath . $entry);
             }
+            $dbHandler->setHealthy(false);
             echo 'Items in database are reseted.<br>';
+            echo 'Site is unhealthy now.<br>';
         }
         ?>
         
         <a href="refresh_id.php">refresh item list</a><br>
         <a href="refresh_item.php">refresh item data</a><br>
-        <a href="admin.php?clear=true">clear data(!!!NOT REVERSABLE!!!)</a><br>
+        <!--a href="admin.php?clear=true">clear data(!!!NOT REVERSABLE!!!)</a><br-->
         <a href="admin.php?seth=true">set healthy</a><br>
         <a href="admin.php?rsth=true">set unhealthy</a><br>
         <br>
-        <a href="http://localhost/phpmyadmin/">Database UI</a><br>
+        <a href="<?php echo $_ncku2hand['dbWebUI']; ?>">Database UI</a><br>
         <a href="../index.php">Return</a><br>
     </body>
 </html>

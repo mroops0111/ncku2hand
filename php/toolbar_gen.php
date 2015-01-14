@@ -3,7 +3,7 @@ echo '
     <header class="toolbar wpcom-masterbar wpcom-forums wpcom-header" role="banner">
         <div class="wpcom-navigation site-navigation wpcom-nav" role="navigation">
             <h1 class="wpcom-title">
-                <a href="index.php">
+                <a href="'.$relPath.'index.php">
                     <span>NCKU2HAND</span>
                 </a>
             </h1>
@@ -14,14 +14,14 @@ echo '
                 <ul class="pages-menu">';
 
 if($isAdmin) {
-    printButton("admin.php", "後台", "Admin", $pageType=='admin');
+    printButton($relPath."admin/admin.php", "後台", "Admin", $pageType=='admin');
 }
 
 if($isUser) {
-    printButton("box.php", "圖片檢視", "BoxView", $pageType=='box');
-    printButton("sort.php", "排序檢視", "SortView", $pageType=='sort');
-    printButton("list.php", "清單檢視", "ListView", $pageType=='list');
-    printButton("index.php?logout=true", "登出", "Logout Our App", false);
+    printButton($relPath."box.php", "圖片檢視", "BoxView", $pageType=='box');
+    printButton($relPath."sort.php", "排序檢視", "SortView", $pageType=='sort');
+    printButton($relPath."list.php", "清單檢視", "ListView", $pageType=='list');
+    printButton($relPath."index.php?logout=true", "登出", "Logout Our App", false);
     printButton("https://www.facebook.com/", "Facebook", "$firstName's Facebook", false);
 } else {
     printButton("https://www.facebook.com/", "Facebook", "Return to Facebook", false);

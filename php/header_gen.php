@@ -1,9 +1,25 @@
 <?php
-//always report php error
+//set absolute path & always report php error
 register_shutdown_function("fatal_handler");
 function fatal_handler() {
     print_r(error_get_last());
 }
+$rootPath = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
+switch ($pageType) {
+    case 'admin':
+        $relPath = '../';
+        break;
+    default :
+        $relPath = '';
+        break;
+}
+
+// include libs
+require_once $rootPath.'inc/config.php';
+require_once $rootPath.'n2h_core/class/n2hDatabaseWrapper.php';
+require_once $rootPath.'n2h_core/class/n2hFacebookConnector.php';
+require_once $rootPath.'n2h_core/class/updateManager.php';
+
 // print general information
 echo '
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -14,25 +30,28 @@ echo '
 
 // print general stylesheet & js
 echo '
-        <link rel="stylesheet" href="css/main.css" type="text/css">
-        <link rel="stylesheet" href="css/header.css" type="text/css">';
+        <link rel="stylesheet" href="'.$relPath.'css/main.css" type="text/css">
+        <link rel="stylesheet" href="'.$relPath.'css/header.css" type="text/css">';
 echo '
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-        <script type="text/javascript" src="../inc/config.js"></script>
-        <script type="text/javascript" src="js/main.js"></script>';
+        <script type="text/javascript" src="'.$relPath.'js/config.js"></script>
+        <script type="text/javascript" src="'.$relPath.'js/main.js"></script>';
+echo '
+        <script>var _ncku2hand = {appId: "'.$_ncku2hand['fbAppId'].'"};</script>';
 
 // print stylesheet & js for each page
 switch ($pageType) {
     case 'index':
         echo '
-                <link rel="stylesheet" href="css/welcome.css">';
+                <link rel="stylesheet" href="css/welcome.css">
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">';
         break;
     case 'box':
         echo '
                 <link rel="stylesheet" href="css/style.css">
                 <link rel="stylesheet" href="css/box.css">
-                <link rel="stylesheet" href="css/hover.css">
-                <script type="text/javascript" src="js/box.js"></script>';
+                <link rel="stylesheet" href="css/hover.css">';
         break;
     case 'sort':
         echo '
@@ -56,12 +75,6 @@ if($pageType=='box' || $pageType=='sort') {
             <link rel="stylesheet" href="../inc/src/fancybox/helpers/jquery.fancybox-thumbs.css" type="text/css" media="screen" />
             <script type="text/javascript" src="../inc/src/fancybox/helpers/jquery.fancybox-thumbs.js"></script>';
 }
-
-// include libs
-require_once '../inc/config.php';
-require_once $_ncku2hand['rootPath'].'n2h_core/class/n2hDatabaseWrapper.php';
-require_once $_ncku2hand['rootPath'].'n2h_core/class/n2hFacebookConnector.php';
-require_once $_ncku2hand['rootPath'].'n2h_core/class/updateManager.php';
 
 $dbHandler = new n2hDatabaseWrapper(
         $_ncku2hand['dbServerName'], 

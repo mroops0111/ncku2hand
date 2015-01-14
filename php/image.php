@@ -1,10 +1,13 @@
 <?php
+//set absolute path & always report php error
 register_shutdown_function("fatal_handler");
 function fatal_handler() {
     print_r(error_get_last());
 }
-require_once '../../inc/config.php';
-require_once $_ncku2hand['rootPath'].'n2h_core/class/n2hDatabaseWrapper.php';
+$rootPath = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
+
+require_once $rootPath.'inc/config.php';
+require_once $rootPath.'n2h_core/class/n2hDatabaseWrapper.php';
 
 //Connect to DB
 $dbHandler = new n2hDatabaseWrapper(
