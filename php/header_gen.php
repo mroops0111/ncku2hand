@@ -4,8 +4,7 @@ register_shutdown_function("fatal_handler");
 function fatal_handler() {
     print_r(error_get_last());
 }
-print_r(dirname(__FILE__));
-$rootPath = "filter_input(INPUT_SERVER, 'DOCUMENT_ROOT')";
+$rootPath = str_replace("ncku2hand/php", "", str_replace('\\', '/', dirname(__FILE__)));
 switch ($pageType) {
     case 'admin':
         $relPath = '../';
