@@ -4,7 +4,8 @@ register_shutdown_function("fatal_handler");
 function fatal_handler() {
     print_r(error_get_last());
 }
-$rootPath = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
+print_r(dirname(__FILE__));
+$rootPath = "filter_input(INPUT_SERVER, 'DOCUMENT_ROOT')";
 switch ($pageType) {
     case 'admin':
         $relPath = '../';
