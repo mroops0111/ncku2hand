@@ -48,7 +48,7 @@ and open the template in the editor.
         }
         
         function clearItems($dbHandler) {
-            $rootPath = str_replace("ncku2hand/php", "", str_replace('\\', '/', dirname(__FILE__)));
+            $rootPath = str_replace("ncku2hand/admin", "", str_replace('\\', '/', dirname(__FILE__)));
             $dbHandler->clearItem();
 
             $imgPath = $rootPath.'storage/img/';
