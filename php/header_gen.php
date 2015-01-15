@@ -34,7 +34,6 @@ echo '
         <link rel="stylesheet" href="'.$relPath.'css/header.css" type="text/css">';
 echo '
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-        <script type="text/javascript" src="'.$relPath.'js/config.js"></script>
         <script type="text/javascript" src="'.$relPath.'js/main.js"></script>';
 echo '
         <script>var _ncku2hand = {appId: "'.$_ncku2hand['fbAppId'].'"};</script>';
@@ -51,7 +50,8 @@ switch ($pageType) {
         echo '
                 <link rel="stylesheet" href="css/style.css">
                 <link rel="stylesheet" href="css/box.css">
-                <link rel="stylesheet" href="css/hover.css">';
+                <link rel="stylesheet" href="css/hover.css">
+                <script type="text/javascript" src="js/box.js"></script>';
         break;
     case 'sort':
         echo '
