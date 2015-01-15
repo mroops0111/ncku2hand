@@ -86,7 +86,8 @@
                         <thead>
                             <tr class="head">
                                 <th style="width: 20%;">Seller</th>
-                                <th style="width: 40%;">Item ID</th>
+                                <th style="width: 20%;">Category</th>
+                                <th style="width: 20%;">Item</th>
                                 <th style="width: 20%;">Update time</th>
                                 <th style="width: 20%;">Create time</th>
                             </tr>

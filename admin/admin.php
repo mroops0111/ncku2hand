@@ -57,6 +57,7 @@ and open the template in the editor.
                 if($entry=='.' || $entry=='..') {
                     continue;
                 }
+                echo $entry."<br>";
                 unlink($imgPath . $entry);
             }
             $dbHandler->setHealthy(false);

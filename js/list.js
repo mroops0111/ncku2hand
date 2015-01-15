@@ -33,6 +33,7 @@ function appendItems(cursor, limit, filter) {
                         alter, 
                         data[itemIndex]["item_id"], 
                         data[itemIndex]["user_id"], 
+                        data[itemIndex]["item_category"], 
                         data[itemIndex]["item_message"], 
                         data[itemIndex]["item_updated_time"], 
                         data[itemIndex]["item_created_time"]
@@ -47,7 +48,7 @@ function appendItems(cursor, limit, filter) {
     );
 }
 
-function addItemToList(alter, itemId, attr1, attr2, arrt3, attr4) {
+function addItemToList(alter, itemId, attr1, attr2, attr3, attr4, attr5) {
     if(alter) {
         var syntax = '<tr class="list-item alt"';
     } else {
@@ -55,9 +56,10 @@ function addItemToList(alter, itemId, attr1, attr2, arrt3, attr4) {
     }
     syntax += ' id="'+itemId+'">'
             +'<td class="iattr1">'+attr1+'</td>'
-            +'<td class="iattr2">'+shrinkMessage(attr2)+'</td>'
-            +'<td class="iattr3">'+timestampToString(arrt3)+'</td>'
+            +'<td class="iattr2">'+attr2+'</td>'
+            +'<td class="iattr3">'+shrinkMessage(attr3)+'</td>'
             +'<td class="iattr4">'+timestampToString(attr4)+'</td>'
+            +'<td class="iattr5">'+timestampToString(attr5)+'</td>'
             +'</tr>';
     $("table.widefat tbody").append(syntax);
     lastItemId = itemId;
@@ -67,15 +69,15 @@ function addItemToList(alter, itemId, attr1, attr2, arrt3, attr4) {
         window.open(url);
     });
     $("#"+itemId).on("shrinkMessage", function(){
-        $("#"+itemId+" .iattr2").replaceWith('<td class="iattr2">'+shrinkMessage(attr2)+'</td>');
+        $("#"+itemId+" .iattr3").replaceWith('<td class="iattr3">'+shrinkMessage(attr3)+'</td>');
     });
     $("#"+itemId).hover(
             function(){
                 $(".full-msg").trigger("shrinkMessage");
-                $("#"+itemId+" .iattr2").replaceWith('<td class="iattr2 full-msg">'+attr2+'</td>');
+                $("#"+itemId+" .iattr3").replaceWith('<td class="iattr3 full-msg">'+attr3+'</td>');
             }, 
             function(){
-                $("#"+itemId+" .iattr2").trigger("shrinkMessage");
+                $("#"+itemId+" .iattr3").trigger("shrinkMessage");
             });
 }
 
