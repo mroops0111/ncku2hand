@@ -7,8 +7,19 @@ function fatal_handler() {
 $rootPath = str_replace("ncku2hand/php", "", str_replace('\\', '/', dirname(__FILE__)));
 
 require_once $rootPath.'inc/config.php';
+require_once $rootPath.'n2h_core/class/n2hDatabaseWrapper.php';
 
-$msg = filter_input(INPUT_GET, 'msg');
+//Connect to DB
+$dbHandler = new n2hDatabaseWrapper(
+        $_ncku2hand['dbServerName'], 
+        $_ncku2hand['dbUserName'], 
+        $_ncku2hand['dbPassword'], 
+        $_ncku2hand['dbName']
+        );
+
+$imageId = filter_input(INPUT_GET, 'id');
 if($imageId) {
+    $imagePath = $dbHandler->getImagePath($imageId);
+    header("Content-type: image/jpeg");
     echo file_get_contents($imagePath);
 }
