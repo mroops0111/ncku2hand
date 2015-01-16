@@ -21,41 +21,42 @@ $(document).ready(function() {
 	$(".fancybox").fancybox({
     	openEffect	: 'elastic',
     	closeEffect	: 'elastic',
-
     	helpers : {
     		title : {
     			type : 'inside'
     		}
     	}
     });
-	
-	
 });
 
 function overview_page(offset){
 	$.post( "php/get.php", {action: "getRandomImages"}, function(data){
 			var amount = 0;
 			var $overview = $("#overview");
-			var tags = "", info_tags="";
+			var tags = "", info_tags="", img_tags="";
 			$overview.append("<ul>");
 			
 			var i, j ,k;
 			for(i=0; i<container_format.length; i++){
 				if(amount >= data.length)break;//exception
-				//$overview.append('<li class="box-container">');
+				
 				tags += '<li class="box-container">';
 				
 				for(j=0; j<container_format[i].length; j++){
 					if(amount >= data.length)break;//exception
-					//$overview.append('<div class="box-0'+container_format[i][j]+'">');
+
 					tags += '<div class="box-0'+container_format[i][j]+'">';
 					
 					for(k=0; k<box_content[container_format[i][j]-1]; k++){ 
 						if(amount >= data.length)break;//exception
 						
 						//for(l=0; l<3; l++)
-							tags += '<a class="fancybox" href="#info"><img class="shrink z" src="php/image.php?id='+data[amount]["image_id"]+'"></a>';
-						
+							img_tags = '<img class="shrink" src="php/image.php?id='+data[amount]["image_id"]+'">';
+							
+							tags += '<a class="fancybox" rel="box-group" href="#box"'+(amount+1)+'>'+img_tags+'</a>';
+							
+							info_tags = '<div class="info" id="box'+(amount+1)+'" style="display:none">'+img_tags+'<div id="message"><h2 style="font-size:32px">'+data[amount]["name"]+'</h2><p><b>詳細資訊:</b></br>'+data["item_message"]+'</p><button type="button" ><a href="https://www.facebook.com/'+data[amoumt][item_id]+'">聯絡賣家</a></button></div></div>';
+							
 						amount++;
 					}
 					tags += '</div>';
